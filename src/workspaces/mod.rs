@@ -1,10 +1,9 @@
-pub mod utils;
 pub mod worker;
 
 use crate::draw::prelude::*;
 use crate::log::*;
+use crate::utils::WorkspaceID;
 use crate::widget::*;
-use utils::WorkspaceID;
 use worker::{work, ManagerMsg, WorkerMsg};
 
 use anyhow::Result;
@@ -287,7 +286,7 @@ impl Widget for Workspaces {
 
         if let Some((id, w)) = self.workspaces.iter().find(|w| w.1.area().contains(point)) {
             debug!(self.lc, "| click :: clicked: {}", w.lc());
-            let _ = utils::send_hypr_command(utils::Command::MoveToWorkspace(*id))?;
+            let _ = crate::utils::send_hypr_command(crate::utils::Command::MoveToWorkspace(*id))?;
         }
 
         Ok(())
